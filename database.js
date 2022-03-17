@@ -17,14 +17,13 @@ const UserSchema = new Schema({
     isAdmin: { type: Boolean, default: false }
 }, { timestamps: true, collection: 'users' })
 
-// const UserSchema = new Schema({
-//     username: String,
-//     email: String,
-//     password: String,
-//     isAdmin: false
-// }, { collection: 'users' })
+const ImageSchema = new Schema({
+    path: { type: String },
+    source: Buffer,
+
+}, { timestamps: true, collection: 'images' })
 
 var User = mongoose.model('users', UserSchema)
-
-module.exports = { User, Product }
+var Image = mongoose.model('images', ImageSchema)
+module.exports = { User, Image }
 

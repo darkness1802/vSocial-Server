@@ -45,7 +45,35 @@ function UnFollowTo(user) {
 }
 
 function CreatePost() {
-    axios.post(`http://localhost:4444/api/poster`, { uid: "62357950a408828d2c67c30b", content: "Hello world, say oh yeah yeah yeah!!!" }).then(response => console.log(response.data))
+    axios.post(`http://localhost:4444/api/poster`, { 
+        uid: "62357950a408828d2c67c30b", 
+        content: "Hello world, say oh yeah yeah yeah!!!",
+        image: "http://localhost:4444/public/images/img01.jpg"
+    }).then(response => console.log(response.data))
+    .catch(err => console.log(err))
+}
+
+function UpdatePost(poster) {
+    axios.put(`http://localhost:4444/api/poster/${poster}`, { 
+        uid: "62357950a408828d2c67c30b",
+        content: "Hello world, I am Tung Hwang!!!",
+        image: "http://localhost:4444/public/images/img02.jpg"
+    }).then(response => console.log(response.data))
+    .catch(err => console.log(err))
+}
+
+function Like(poster) {
+    axios.put(`http://localhost:4444/api/poster/like/${poster}`, { 
+        uid: "62357950a408828d2c67c30b"
+    }).then(response => console.log(response.data))
+    .catch(err => console.log(err))
+}
+
+function Comment(poster, content) {
+    axios.post(`http://localhost:4444/api/poster/comment/${poster}`, { 
+        uid: "62357950a408828d2c67c30b",
+        content: content
+    }).then(response => console.log(response.data))
     .catch(err => console.log(err))
 }
 // Register()
@@ -56,4 +84,10 @@ function CreatePost() {
 // FollowTo("6235796fa3cbe74c78e3e908")
 // UnFollowTo("6235796fa3cbe74c78e3e908")
 
-CreatePost()
+// CreatePost()
+// UpdatePost("62359c107706e35a79103bbe")
+// Like("62359c107706e35a79103bbe")
+Comment("62359c107706e35a79103bbe", "Bai hay qua, cam on nha")
+Comment("62359c107706e35a79103bbe", "Bai hay qua, cam on nha")
+Comment("62359c107706e35a79103bbe", "Bai hay qua, cam on nha")
+Comment("62359c107706e35a79103bbe", "Bai hay qua, cam on nha")

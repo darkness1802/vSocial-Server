@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
+const cors = require('cors')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
@@ -16,9 +17,11 @@ mongoose.connect(process.env.MONGODB, {
 })
 
 // <<<--- middle ware
+app.use('/static', express.static('public'))
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(cors())
 // app.use(helmet())
 // app.use(morgan("common"))
 // --->>> middle ware

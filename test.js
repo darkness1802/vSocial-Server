@@ -1,7 +1,9 @@
 const axios = require('axios')
+const dotenv = require('dotenv')
+dotenv.config()
 
-let username = "tungxm321"
-let email = "tungxm321@gmail.com"
+let username = "tungxm222"
+let email = "tungxm222@gmail.com"
 let password = "123123"
 let fullname = "Hwang Tung"
 
@@ -12,10 +14,11 @@ function Register() {
 }
 
 function Login() {
-    axios.post('http://localhost:4444/api/auth/login', { username, password })
-    .then(res => console.log(res))
+    axios.post('http://localhost:4444/api/auth/login', { username, password }, {headers: {  }})
+    .then(res => console.log(res.data))
     .catch(err => console.log(err))
 }
+
 
 function Update() {
     axios.put('http://localhost:4444/api/user/6234e5d9c68442815283495e', {  }).then(response => console.log(response.data))
@@ -44,11 +47,11 @@ function UnFollowTo(user) {
     .catch(err => console.log(err))
 }
 
-function CreatePost() {
+function CreatePost(uid, content) {
     axios.post(`http://localhost:4444/api/poster`, { 
-        uid: "62357950a408828d2c67c30b", 
-        content: "Hello world, say oh yeah yeah yeah!!!",
-        image: "http://localhost:4444/public/images/img01.jpg"
+        uid: uid, 
+        content: content,
+        image: "http://localhost:4444/public/images/img03.jpg"
     }).then(response => console.log(response.data))
     .catch(err => console.log(err))
 }
@@ -76,18 +79,32 @@ function Comment(poster, content) {
     }).then(response => console.log(response.data))
     .catch(err => console.log(err))
 }
+
+function GetPosters(uid) {
+    axios.get(`http://localhost:4444/api/poster/${uid}`)
+    .then(response => console.log(response.data))
+    .catch(err => console.log(err))
+}
+
+function GetNewsFeed(uid) {
+    axios.get(`http://localhost:4444/api/poster/newsfeed/${uid}`)
+    .then(response => console.log(response.data))
+    .catch(err => console.log(err))
+}
 // Register()
-// Login()
+Login()
 // Update()
 
 // Delete("6234e5d9c68442815283495e")
 // FollowTo("6235796fa3cbe74c78e3e908")
 // UnFollowTo("6235796fa3cbe74c78e3e908")
 
-// CreatePost()
+// CreatePost("62361f846c012da875f8ed40", "Fucking job, gru gru")
 // UpdatePost("62359c107706e35a79103bbe")
 // Like("62359c107706e35a79103bbe")
-Comment("62359c107706e35a79103bbe", "Bai hay qua, cam on nha")
-Comment("62359c107706e35a79103bbe", "Bai hay qua, cam on nha")
-Comment("62359c107706e35a79103bbe", "Bai hay qua, cam on nha")
-Comment("62359c107706e35a79103bbe", "Bai hay qua, cam on nha")
+// Comment("62359c107706e35a79103bbe", "Bai hay qua, cam on nha")
+// Comment("62359c107706e35a79103bbe", "Bai hay qua, cam on nha")
+// Comment("62359c107706e35a79103bbe", "Bai hay qua, cam on nha")
+// Comment("62359c107706e35a79103bbe", "Bai hay qua, cam on nha")
+// GetPosters("62357950a408828d2c67c30b")
+// GetNewsFeed("62357950a408828d2c67c30b")

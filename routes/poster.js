@@ -47,6 +47,7 @@ const { Poster, Comment } = require('../models/Poster')
 })
 
 /* Like */ router.put("/like/:postid", async (req, res) => {
+    console.log(`${req.body.uid} LIKE POST ${req.params.postid}`)
     try {
         let post = await Poster.findById(req.params.postid)
         // Nếu req.body.uid (đối tượng like bài viết) đã tồn tại trong post.liker => dislike
@@ -56,6 +57,20 @@ const { Poster, Comment } = require('../models/Poster')
         } else {
             await Poster.findByIdAndUpdate(req.params.postid, {$push: { liker: req.body.uid }})
             res.status(200).json({ msg: "Like", user: req.body.uid, post: req.params.postid })
+        }
+    } catch (err) {
+        res.status(500).json({ msg: err})
+    }
+})
+
+/* isLiked Checking */ router.post("/isliked/:postid", async (req, res) => {
+    console.log(`CHECKING: ${req.body.uid} LIKED POST ${req.params.postid}`)
+    try {
+        let post = await Poster.findById(req.params.postid)
+        if (post.liker.includes(req.body.uid)) {
+            res.status(200).json(true)
+        } else {
+            res.status(401).json(false)
         }
     } catch (err) {
         res.status(500).json({ msg: err})
